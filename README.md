@@ -7,5 +7,7 @@ Text based game using [Fairfax HD](http://www.kreativekorp.com/software/fonts/fa
 
 You can see the deployed site here: [http://13.48.11.221/BlazorDungeon](http://13.48.11.221/BlazorDungeon)
 
+Set focus to the page(click anywhere on it) and use arrows keys to move your player.
+
 ### Sample gameplay ###
 ![Gameplay](./Resources/gameplay.gif)
