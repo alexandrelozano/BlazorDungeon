@@ -26,6 +26,14 @@ namespace BlazorDungeon.Data
                     break;
                 }
             }
+
+            try
+            {
+                string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " New connection " + Id.ToString() + Environment.NewLine;
+                System.IO.File.AppendAllText(@"C:\Log\Tmp\BlazorDungeon.txt", text);
+            }catch(Exception e)
+            {
+            }
         }
 
         public void Dispose()
@@ -43,6 +51,16 @@ namespace BlazorDungeon.Data
                     }
                 }
             }
+
+            try
+            {
+                string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " Ended connection " + Id.ToString() + Environment.NewLine;
+                System.IO.File.AppendAllText(@"C:\Log\Tmp\BlazorDungeon.txt", text);
+            }
+            catch (Exception e)
+            {
+            }
+
         }
     }
 }
