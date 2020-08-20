@@ -1,0 +1,107 @@
+@font-face {
+    font-family: 'fairfaxhd';
+    src: url('../fonts/fairfaxhd.ttf') format('truetype');
+}
+
+body {
+    background-color: #000;
+    text-align: center;
+}
+
+pre {
+    display: inline-block;
+    text-align: left;
+    color: #fff;
+    font-family: fairfaxhd, monospace;
+    margin: 0;
+    line-height: 1;
+}
+
+pre {
+    font-size: 3.75vh;
+}
+
+    pre span {
+        opacity: 1;
+    }
+
+a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 1;
+}
+
+    a:hover {
+        background-color: #333;
+    }
+
+.text {
+    color: #bbb;
+    opacity: 1;
+}
+
+    .text:first-child {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+.wall {
+    color: #666;
+}
+
+.corridor {
+    color: #ccc;
+}
+
+.staircase {
+    color: #aaa;
+}
+
+.door {
+    color: #a60;
+}
+
+.trap {
+    color: #f0f;
+}
+
+.scroll {
+    color: #fff;
+}
+
+.water {
+    color: #33f;
+}
+
+.potion {
+    color: #3ff;
+}
+
+.money, .money a {
+    color: #fe0;
+    opacity: 1;
+}
+
+.player {
+    color: #f00;
+}
+
+.kobold {
+    color: #3f3;
+}
+
+.orc {
+    color: #3f3;
+}
+
+.goblin {
+    color: #00f;
+}
+
+.ogre {
+    color: #3a3;
+}
+
+.dragon {
+    color: #f33;
+}

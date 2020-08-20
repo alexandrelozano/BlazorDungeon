@@ -1,0 +1,43 @@
+﻿@page "/"
+@using BlazorDungeon.Data
+@using BlazorDungeon.Service
+
+@inject ScreenChangeBroadcastService ScreenChangeBroadcastService;
+@inject StateManager StateManager;
+
+<pre tabindex="0" @onkeydown="OnKeyPressScreen">@if(rows!=null)foreach (var row in rows){
+    foreach (var cell in row.Cells){<span style="color:@cell.foreColorHTML();background-color:@cell.backColorHTML()">@cell.character</span>}@Environment.NewLine
+}
+</pre>
+@code{
+
+    private IList<Row> rows;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            this.ScreenChangeBroadcastService.OnScreenChanged += this.ScreenChanged;
+            StateManager.Initialize(ScreenChangeBroadcastService.game);
+            this.rows = this.ScreenChangeBroadcastService.GetCurrentValues(StateManager.Id);
+        }
+    }
+
+    private async void ScreenChanged(object sender, ScreenChangeEventArgs args)
+    {
+        await InvokeAsync(() =>
+        {
+            base.StateHasChanged();
+        });
+    }
+
+    private async Task OnKeyPressScreen(KeyboardEventArgs e)
+    {
+        this.ScreenChangeBroadcastService.SendKey(e.Key, StateManager.Id);
+    }
+
+    public void Dispose()
+    {
+        this.ScreenChangeBroadcastService.OnScreenChanged -= this.ScreenChanged;
+    }
+}
