@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace BlazorDungeon.Data
 {
@@ -8,9 +9,12 @@ namespace BlazorDungeon.Data
         public Guid Id { get; private set; }
         public Game game;
 
+        private string logPath;
+
         public StateManager()
         {
             this.Id = Guid.NewGuid();
+            logPath = @"C:\Log\Tmp";
         }
 
         public void Initialize(Game game)
@@ -29,9 +33,13 @@ namespace BlazorDungeon.Data
 
             try
             {
-                string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " New connection " + Id.ToString() + Environment.NewLine;
-                System.IO.File.AppendAllText(@"C:\Log\Tmp\BlazorDungeon.txt", text);
-            }catch(Exception e)
+                if (Directory.Exists(logPath))
+                {
+                    string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " New connection " + Id.ToString() + Environment.NewLine;
+                    System.IO.File.AppendAllText(logPath + @"\BlazorDungeon.txt", text);
+                }
+            }
+            catch(Exception e)
             {
             }
         }
@@ -54,8 +62,11 @@ namespace BlazorDungeon.Data
 
             try
             {
-                string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " Ended connection " + Id.ToString() + Environment.NewLine;
-                System.IO.File.AppendAllText(@"C:\Log\Tmp\BlazorDungeon.txt", text);
+                if (Directory.Exists(logPath))
+                {
+                    string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " Ended connection " + Id.ToString() + Environment.NewLine;
+                    System.IO.File.AppendAllText(logPath + @"\BlazorDungeon.txt", text);
+                }
             }
             catch (Exception e)
             {
