@@ -12,36 +12,36 @@
 <div>
     @if (sounds != null && sounds.Count > 0)
     {
-        if (sounds[0] > DateTime.Now.AddMilliseconds(-500))
+        if (sounds[0])
         {
-            <audio autoplay><source src="/sounds/death.mp3" /></audio>
+            <audio autoplay><source src="./sounds/death.mp3" /></audio>
         }
-        if (sounds[1] > DateTime.Now.AddMilliseconds(-500))
+        if (sounds[1])
         {
-            <audio autoplay><source src="/sounds/coin.mp3" /></audio>
+            <audio autoplay><source src="./sounds/coin.mp3" /></audio>
         }
-        if (sounds[2] > DateTime.Now.AddMilliseconds(-500))
+        if (sounds[2])
         {
-            <audio autoplay><source src="/sounds/cherrie.mp3" /></audio>
+            <audio autoplay><source src="./sounds/cherrie.mp3" /></audio>
         }
-        if (sounds[3] > DateTime.Now.AddMilliseconds(-500))
+        if (sounds[3])
         {
-            <audio autoplay><source src="/sounds/redapple.mp3" /></audio>
+            <audio autoplay><source src="./sounds/redapple.mp3" /></audio>
         }
-        if (sounds[4] > DateTime.Now.AddMilliseconds(-500))
+        if (sounds[4])
         {
-            <audio autoplay><source src="/sounds/greenapple.mp3" /></audio>
+            <audio autoplay><source src="./sounds/greenapple.mp3" /></audio>
         }
-        if (sounds[5] > DateTime.Now.AddMilliseconds(-500))
+        if (sounds[5])
         {
-            <audio autoplay><source src="/sounds/strawberry.mp3" /></audio>
+            <audio autoplay><source src="./sounds/strawberry.mp3" /></audio>
         }
     }
 </div>
 @code{
 
     private IList<Row> rows;
-    private IList<DateTime> sounds;
+    private IList<bool> sounds;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

@@ -70,9 +70,9 @@ namespace BlazorDungeon.Service
             return rows;
         }
 
-        public IList<DateTime> GetCurrentValuesSounds(Guid SessionId)
+        public IList<bool> GetCurrentValuesSounds(Guid SessionId)
         {
-            IList<DateTime> sounds = null;
+            IList<bool> sounds = null;
 
             for (short i = 0; i < game.playerCount; i++)
             {

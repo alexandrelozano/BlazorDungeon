@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Timers;
 
 namespace BlazorDungeon.Data
@@ -9,7 +10,8 @@ namespace BlazorDungeon.Data
     public class Game
     {
         public IList<Row>[] rows;
-        public IList<DateTime>[] sounds;
+        public IList<bool>[] sounds;
+        public IList<DateTime>[] soundsTime;
 
         public IList<string>[] keyDown;
 
@@ -101,16 +103,25 @@ namespace BlazorDungeon.Data
                 }
             }
 
-            sounds = new List<DateTime>[playerCount + 1];
+            sounds = new List<bool>[playerCount + 1];
+            soundsTime = new List<DateTime>[playerCount + 1];
             for (short i = 0; i < playerCount + 1; i++)
             {
-                sounds[i] = new List<DateTime>();
-                sounds[i].Add(DateTime.Now.AddDays(-1));
-                sounds[i].Add(DateTime.Now.AddDays(-1));
-                sounds[i].Add(DateTime.Now.AddDays(-1));
-                sounds[i].Add(DateTime.Now.AddDays(-1));
-                sounds[i].Add(DateTime.Now.AddDays(-1));
-                sounds[i].Add(DateTime.Now.AddDays(-1));
+                sounds[i] = new List<bool>();
+                sounds[i].Add(false);
+                sounds[i].Add(false);
+                sounds[i].Add(false);
+                sounds[i].Add(false);
+                sounds[i].Add(false);
+                sounds[i].Add(false);
+
+                soundsTime[i] = new List<DateTime>();
+                soundsTime[i].Add(DateTime.Now.AddDays(-1));
+                soundsTime[i].Add(DateTime.Now.AddDays(-1));
+                soundsTime[i].Add(DateTime.Now.AddDays(-1));
+                soundsTime[i].Add(DateTime.Now.AddDays(-1));
+                soundsTime[i].Add(DateTime.Now.AddDays(-1));
+                soundsTime[i].Add(DateTime.Now.AddDays(-1));
             }
 
             chPlayer = Char.ConvertFromUtf32(1047636);
@@ -253,7 +264,7 @@ namespace BlazorDungeon.Data
                     if (itemX[j]==playerX[i] && itemY[j] == playerY[i])
                     {
                         playerScore[i] += itemValue[j];
-                        sounds[i][itemSound[j]] = DateTime.Now;
+                        soundsTime[i][itemSound[j]] = DateTime.Now.AddSeconds(1);
                         randomPosition(out itemX[j], out itemY[j]);
                     }
                 }
@@ -263,7 +274,7 @@ namespace BlazorDungeon.Data
                     if (enemyX[j] == playerX[i] && enemyY[j] == playerY[i])
                     {
                         playerScore[i] = 0;
-                        sounds[i][0] = DateTime.Now;
+                        soundsTime[i][0] = DateTime.Now.AddSeconds(1);
                         randomPosition(out playerX[i], out playerY[i]);
                     }
                 }
@@ -312,8 +323,23 @@ namespace BlazorDungeon.Data
                     if (enemyX[i] == playerX[j] && enemyY[i] == playerY[j])
                     {
                         playerScore[j] = 0;
-                        sounds[j][0] = DateTime.Now;
+                        soundsTime[j][0] = DateTime.Now.AddSeconds(1);
                         randomPosition(out playerX[j], out playerY[j]);
+                    }
+                }
+            }
+
+            for (short i=0; i < playerCount; i++)
+            {
+                for (short j = 0; j < soundsTime.Count(); j++)
+                {
+                    if (soundsTime[i][j] < DateTime.Now)
+                    {
+                        sounds[i][j] = false;
+                    }
+                    else
+                    {
+                        sounds[i][j] = true;
                     }
                 }
             }
