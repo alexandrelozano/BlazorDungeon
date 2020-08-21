@@ -27,18 +27,28 @@ namespace BlazorDungeon.Service
                 this.OnScreenChanged(this, new ScreenChangeEventArgs(null));
         }
 
-        public void SendKey(string key, Guid SessionId)
+        public void KeyDown(string key, Guid SessionId)
         {
             for (short i = 0; i < game.playerCount; i++)
             {
                 if (game.playerSessionId[i] == SessionId)
                 {
-                    game.keyDown[i] = key;
+                    if (!game.keyDown[i].Contains(key))
+                        game.keyDown[i].Add(key);
                 }
             }
+        }
 
-            if (this.OnScreenChanged != null)
-                this.OnScreenChanged(this, new ScreenChangeEventArgs(null));
+        public void KeyUp(string key, Guid SessionId)
+        {
+            for (short i = 0; i < game.playerCount; i++)
+            {
+                if (game.playerSessionId[i] == SessionId)
+                {
+                    if (game.keyDown[i].Contains(key))
+                        game.keyDown[i].Remove(key);
+                }
+            }
         }
 
         public IList<Row> GetCurrentValues(Guid SessionId)

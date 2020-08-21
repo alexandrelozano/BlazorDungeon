@@ -5,7 +5,7 @@
 @inject ScreenChangeBroadcastService ScreenChangeBroadcastService;
 @inject StateManager StateManager;
 
-<pre tabindex="0" @onkeydown="OnKeyPressScreen">@if(rows!=null)foreach (var row in rows){
+<pre tabindex="0" @onkeydown="OnKeyDownScreen" @onkeyup="OnKeyUpScreen">@if(rows!=null)foreach (var row in rows){
     foreach (var cell in row.Cells){<span style="color:@cell.foreColorHTML();background-color:@cell.backColorHTML()">@cell.character</span>}@Environment.NewLine
 }
 </pre>
@@ -31,9 +31,14 @@
         });
     }
 
-    private async Task OnKeyPressScreen(KeyboardEventArgs e)
+    private async Task OnKeyDownScreen(KeyboardEventArgs e)
     {
-        this.ScreenChangeBroadcastService.SendKey(e.Key, StateManager.Id);
+        this.ScreenChangeBroadcastService.KeyDown(e.Key, StateManager.Id);
+    }
+
+    private async Task OnKeyUpScreen(KeyboardEventArgs e)
+    {
+        this.ScreenChangeBroadcastService.KeyUp(e.Key, StateManager.Id);
     }
 
     public void Dispose()

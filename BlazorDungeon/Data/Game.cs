@@ -10,7 +10,7 @@ namespace BlazorDungeon.Data
     {
         public IList<Row>[] rows;
 
-        public string[] keyDown;
+        public IList<string>[] keyDown;
 
         public short[] playerX;
         public short[] playerY;
@@ -133,7 +133,11 @@ namespace BlazorDungeon.Data
             maze[21] += "*   * *     *   *       *     *     *     *         *         *     *";
             maze[22] += "*********************************************************************";
 
-            keyDown = new string[playerCount];
+            keyDown = new List<string>[playerCount];
+            for (short i = 0; i < playerCount; i++)
+            {
+                keyDown[i] = new List<string>();
+            }
 
             playerX = new short[playerCount];
             playerY = new short[playerCount];
@@ -206,27 +210,29 @@ namespace BlazorDungeon.Data
         {
             for (short i = 0; i < playerCount; i++)
             {
-                switch (keyDown[i])
+                for (short j = 0; j < keyDown[i].Count; j++)
                 {
-                    case "ArrowUp":
-                        if (playerY[i] > 0 && maze[playerY[i] - 1].ToCharArray()[playerX[i]] != '*')
-                            playerY[i]--;
-                        break;
-                    case "ArrowDown":
-                        if (playerY[i] < heightDungeon && maze[playerY[i] + 1].ToCharArray()[playerX[i]] != '*')
-                            playerY[i]++;
-                        break;
-                    case "ArrowLeft":
-                        if (playerX[i] > 0 && maze[playerY[i]].ToCharArray()[playerX[i] - 1] != '*')
-                            playerX[i]--;
-                        break;
-                    case "ArrowRight":
-                        if (playerX[i] < widthDungeon && maze[playerY[i]].ToCharArray()[playerX[i] + 1] != '*')
-                            playerX[i]++;
-                        break;
+                    switch (keyDown[i][j])
+                    {
+                        case "ArrowUp":
+                            if (playerY[i] > 0 && maze[playerY[i] - 1].ToCharArray()[playerX[i]] != '*')
+                                playerY[i]--;
+                            break;
+                        case "ArrowDown":
+                            if (playerY[i] < heightDungeon && maze[playerY[i] + 1].ToCharArray()[playerX[i]] != '*')
+                                playerY[i]++;
+                            break;
+                        case "ArrowLeft":
+                            if (playerX[i] > 0 && maze[playerY[i]].ToCharArray()[playerX[i] - 1] != '*')
+                                playerX[i]--;
+                            break;
+                        case "ArrowRight":
+                            if (playerX[i] < widthDungeon && maze[playerY[i]].ToCharArray()[playerX[i] + 1] != '*')
+                                playerX[i]++;
+                            break;
+                    }
                 }
-                keyDown[i] = "";
-
+                
                 for (short j = 0; j < itemCount; j++)
                 {
                     if (itemX[j]==playerX[i] && itemY[j] == playerY[i])
