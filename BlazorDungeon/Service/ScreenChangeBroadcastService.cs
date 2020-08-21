@@ -70,6 +70,21 @@ namespace BlazorDungeon.Service
             return rows;
         }
 
+        public IList<DateTime> GetCurrentValuesSounds(Guid SessionId)
+        {
+            IList<DateTime> sounds = null;
+
+            for (short i = 0; i < game.playerCount; i++)
+            {
+                if (game.playerSessionId[i] == SessionId)
+                {
+                    sounds = game.sounds[i];
+                }
+            }
+
+            return sounds;
+        }
+
         public void Dispose()
         {
             

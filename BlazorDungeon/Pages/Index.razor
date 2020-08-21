@@ -9,9 +9,39 @@
     foreach (var cell in row.Cells){<span style="color:@cell.foreColorHTML();background-color:@cell.backColorHTML()">@cell.character</span>}@Environment.NewLine
 }
 </pre>
+<div>
+    @if (sounds != null && sounds.Count > 0)
+    {
+        if (sounds[0] > DateTime.Now.AddMilliseconds(-500))
+        {
+            <audio autoplay><source src="/sounds/death.mp3" /></audio>
+        }
+        if (sounds[1] > DateTime.Now.AddMilliseconds(-500))
+        {
+            <audio autoplay><source src="/sounds/coin.mp3" /></audio>
+        }
+        if (sounds[2] > DateTime.Now.AddMilliseconds(-500))
+        {
+            <audio autoplay><source src="/sounds/cherrie.mp3" /></audio>
+        }
+        if (sounds[3] > DateTime.Now.AddMilliseconds(-500))
+        {
+            <audio autoplay><source src="/sounds/redapple.mp3" /></audio>
+        }
+        if (sounds[4] > DateTime.Now.AddMilliseconds(-500))
+        {
+            <audio autoplay><source src="/sounds/greenapple.mp3" /></audio>
+        }
+        if (sounds[5] > DateTime.Now.AddMilliseconds(-500))
+        {
+            <audio autoplay><source src="/sounds/strawberry.mp3" /></audio>
+        }
+    }
+</div>
 @code{
 
     private IList<Row> rows;
+    private IList<DateTime> sounds;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -20,6 +50,7 @@
             this.ScreenChangeBroadcastService.OnScreenChanged += this.ScreenChanged;
             StateManager.Initialize(ScreenChangeBroadcastService.game);
             this.rows = this.ScreenChangeBroadcastService.GetCurrentValues(StateManager.Id);
+            this.sounds = this.ScreenChangeBroadcastService.GetCurrentValuesSounds(StateManager.Id);
         }
     }
 

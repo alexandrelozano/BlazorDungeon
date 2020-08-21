@@ -9,6 +9,7 @@ namespace BlazorDungeon.Data
     public class Game
     {
         public IList<Row>[] rows;
+        public IList<DateTime>[] sounds;
 
         public IList<string>[] keyDown;
 
@@ -28,6 +29,7 @@ namespace BlazorDungeon.Data
         public short[] itemY;
         public short[] itemType;
         public short[] itemValue;
+        public short[] itemSound;
         public short itemCount;
 
         public short cherrieX;
@@ -97,6 +99,18 @@ namespace BlazorDungeon.Data
                     r.Cells = Cells;
                     rows[i].Add(r);
                 }
+            }
+
+            sounds = new List<DateTime>[playerCount + 1];
+            for (short i = 0; i < playerCount + 1; i++)
+            {
+                sounds[i] = new List<DateTime>();
+                sounds[i].Add(DateTime.Now.AddDays(-1));
+                sounds[i].Add(DateTime.Now.AddDays(-1));
+                sounds[i].Add(DateTime.Now.AddDays(-1));
+                sounds[i].Add(DateTime.Now.AddDays(-1));
+                sounds[i].Add(DateTime.Now.AddDays(-1));
+                sounds[i].Add(DateTime.Now.AddDays(-1));
             }
 
             chPlayer = Char.ConvertFromUtf32(1047636);
@@ -181,16 +195,17 @@ namespace BlazorDungeon.Data
             itemX = new short[itemCount];
             itemY = new short[itemCount];
             itemValue = new short[itemCount];
+            itemSound = new short[itemCount];
             itemType = new short[itemCount];
             for (short i = 0; i < itemCount; i++)
             {
                 randomPosition(out itemX[i], out itemY[i]);
 
-                if (i < 10) { itemType[i] = 0; itemValue[i] = 10; }
-                else if (i < 15) { itemType[i] = 1; itemValue[i] = 20; }
-                else if (i < 20) { itemType[i] = 2; itemValue[i] = 30; }
-                else if (i < 25) { itemType[i] = 3; itemValue[i] = 40; }
-                else { itemType[i] = 4; itemValue[i] = 50; }
+                if (i < 10) { itemType[i] = 0; itemValue[i] = 10; itemSound[i] = 1; }
+                else if (i < 15) { itemType[i] = 1; itemValue[i] = 20; itemSound[i] = 2; }
+                else if (i < 20) { itemType[i] = 2; itemValue[i] = 30; itemSound[i] = 3; }
+                else if (i < 25) { itemType[i] = 3; itemValue[i] = 40; itemSound[i] = 4; }
+                else { itemType[i] = 4; itemValue[i] = 50; itemSound[i] = 5; }
             }
             CoinColor = Color.Gold;
             CherrieColor = Color.Red;
@@ -238,6 +253,7 @@ namespace BlazorDungeon.Data
                     if (itemX[j]==playerX[i] && itemY[j] == playerY[i])
                     {
                         playerScore[i] += itemValue[j];
+                        sounds[i][itemSound[j]] = DateTime.Now;
                         randomPosition(out itemX[j], out itemY[j]);
                     }
                 }
@@ -247,6 +263,7 @@ namespace BlazorDungeon.Data
                     if (enemyX[j] == playerX[i] && enemyY[j] == playerY[i])
                     {
                         playerScore[i] = 0;
+                        sounds[i][0] = DateTime.Now;
                         randomPosition(out playerX[i], out playerY[i]);
                     }
                 }
@@ -295,6 +312,7 @@ namespace BlazorDungeon.Data
                     if (enemyX[i] == playerX[j] && enemyY[i] == playerY[j])
                     {
                         playerScore[j] = 0;
+                        sounds[j][0] = DateTime.Now;
                         randomPosition(out playerX[j], out playerY[j]);
                     }
                 }
