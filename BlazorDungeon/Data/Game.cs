@@ -69,7 +69,7 @@ namespace BlazorDungeon.Data
         private const string cssPlayer = "p";
         private const string cssEnemy = "f";
         private const string cssCoin = "g";
-        private const string cssCherrie = "f";
+        private const string cssCherrie = "h";
         private const string cssGreenApple = "i";
         private const string cssRedApple = "j";
         private const string cssStrawberry = "k";
@@ -371,7 +371,7 @@ namespace BlazorDungeon.Data
                 for (short j = 0; j < enemyCount; j++)
                 {
                     rows[i][enemyY[j] + 1].Cells[enemyX[j] + 1].character = chEnemy;
-                    rows[i][enemyY[j] + 1].Cells[enemyX[j] + 1].cssClass = cssStrawberry;
+                    rows[i][enemyY[j] + 1].Cells[enemyX[j] + 1].cssClass = cssEnemy;
                 }
             }
         }
