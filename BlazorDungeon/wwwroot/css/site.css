@@ -21,87 +21,82 @@ pre {
     font-size: 3.75vh;
 }
 
-    pre span {
-        opacity: 1;
-    }
-
-a {
-    color: #fff;
-    text-decoration: none;
-    opacity: 1;
+.a {
+    color: palegoldenrod;
+    background-color: black;
 }
 
-    a:hover {
-        background-color: #333;
-    }
-
-.text {
-    color: #bbb;
-    opacity: 1;
+.b {
+    color: black;
+    background-color: black;
 }
 
-    .text:first-child {
-        color: #fff;
-        text-decoration: underline;
-    }
-
-.wall {
-    color: #666;
+.c {
+    color: yellow;
+    background-color: cadetblue;
 }
 
-.corridor {
-    color: #ccc;
+.d {
+    color: aquamarine;
+    background-color: cadetblue;
 }
 
-.staircase {
-    color: #aaa;
+.e {
+    color: red;
+    background-color: cadetblue;
 }
 
-.door {
-    color: #a60;
+.f {
+    color: palevioletred;
+    background-color: black;
 }
 
-.trap {
-    color: #f0f;
+.p1 {
+    color: DarkOrange;
+    background-color: black;
 }
 
-.scroll {
-    color: #fff;
+.p2 {
+    color: DarkGreen;
+    background-color: black;
 }
 
-.water {
-    color: #33f;
+.p3 {
+    color: DarkTurquoise;
+    background-color: black;
 }
 
-.potion {
-    color: #3ff;
+.p4 {
+    color: DarkSlateGray;
+    background-color: black;
 }
 
-.money, .money a {
-    color: #fe0;
-    opacity: 1;
+.p5 {
+    color: DarkOrchid;
+    background-color: black;
 }
 
-.player {
-    color: #f00;
+.g {
+    color: gold;
+    background-color: black;
 }
 
-.kobold {
-    color: #3f3;
+.h {
+    color: red;
+    background-color: black;
 }
 
-.orc {
-    color: #3f3;
+.i {
+    color: green;
+    background-color: black;
 }
 
-.goblin {
-    color: #00f;
+.j {
+    color: darkred;
+    background-color: black;
 }
 
-.ogre {
-    color: #3a3;
-}
-
-.dragon {
-    color: #f33;
+.k {
+    color: blueviolet;
+    background-color: black;
 }

@@ -56,15 +56,23 @@ namespace BlazorDungeon.Data
         public string chEnemy;
         public string chWall;
         public string chCoin;
-        public Color CoinColor;
         public string chCherrie;
-        public Color CherrieColor;
         public string chRedApple;
-        public Color RedAppleColor;
         public string chGreenApple;
-        public Color GreenAppleColor;
         public string chStrawberry;
-        public Color StrawberryColor;
+
+        private const string cssWall = "a";
+        private const string cssCorridor = "b";
+        private const string cssMarginTitle = "c";
+        private const string cssMarginText = "d";
+        private const string cssRoomFull = "e";
+        private const string cssPlayer = "p";
+        private const string cssEnemy = "f";
+        private const string cssCoin = "g";
+        private const string cssCherrie = "f";
+        private const string cssGreenApple = "i";
+        private const string cssRedApple = "j";
+        private const string cssStrawberry = "k";
 
         string[] maze;
 
@@ -92,8 +100,7 @@ namespace BlazorDungeon.Data
                         Cell c = new Cell();
                         c.x = x;
                         c.y = y;
-                        c.foreColor = Color.White;
-                        c.backColor = Color.Black;
+                        c.cssClass = cssCorridor;
                         c.character = " ";
                         Cells.Add(c);
                     }
@@ -167,29 +174,10 @@ namespace BlazorDungeon.Data
             playerX = new short[playerCount];
             playerY = new short[playerCount];
             playerScore = new int[playerCount];
-            playerColor = new Color[playerCount];
             playerSessionId = new Guid[playerCount];
             for (short i = 0; i < playerCount; i++)
             {
                 randomPosition(out playerX[i], out playerY[i]);
-                switch (i)
-                {
-                    case 0:
-                        playerColor[i] = Color.DarkOrange;
-                        break;
-                    case 1:
-                        playerColor[i] = Color.DarkGreen;
-                        break;
-                    case 2:
-                        playerColor[i] = Color.DarkTurquoise;
-                        break;
-                    case 3:
-                        playerColor[i] = Color.DarkSlateGray;
-                        break;
-                    case 4:
-                        playerColor[i] = Color.DarkOrchid;
-                        break;
-                }
             }
 
             enemyCount = 10;
@@ -218,11 +206,6 @@ namespace BlazorDungeon.Data
                 else if (i < 25) { itemType[i] = 3; itemValue[i] = 40; itemSound[i] = 4; }
                 else { itemType[i] = 4; itemValue[i] = 50; itemSound[i] = 5; }
             }
-            CoinColor = Color.Gold;
-            CherrieColor = Color.Red;
-            GreenAppleColor = Color.Green;
-            RedAppleColor = Color.DarkRed;
-            StrawberryColor = Color.BlueViolet;
 
             gameSpeed = 200;
 
@@ -355,7 +338,7 @@ namespace BlazorDungeon.Data
                 for (short j = 0; j < playerCount; j++)
                 {
                     rows[i][playerY[j] + 1].Cells[playerX[j] + 1].character = chPlayer;
-                    rows[i][playerY[j] + 1].Cells[playerX[j] + 1].foreColor = playerColor[j];
+                    rows[i][playerY[j] + 1].Cells[playerX[j] + 1].cssClass = cssPlayer+(j+1).ToString();
                 }
 
                 for (short j = 0; j < itemCount; j++)
@@ -364,23 +347,23 @@ namespace BlazorDungeon.Data
                     {
                         case 0:
                             rows[i][itemY[j] + 1].Cells[itemX[j] + 1].character = chCoin;
-                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].foreColor = CoinColor;
+                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].cssClass = cssCoin;
                             break;
                         case 1:
                             rows[i][itemY[j] + 1].Cells[itemX[j] + 1].character = chCherrie;
-                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].foreColor = CherrieColor;
+                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].cssClass = cssCherrie;
                             break;
                         case 2:
                             rows[i][itemY[j] + 1].Cells[itemX[j] + 1].character = chGreenApple;
-                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].foreColor = GreenAppleColor;
+                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].cssClass = cssGreenApple;
                             break;
                         case 3:
                             rows[i][itemY[j] + 1].Cells[itemX[j] + 1].character = chRedApple;
-                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].foreColor = RedAppleColor;
+                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].cssClass = cssRedApple;
                             break;
                         case 4:
                             rows[i][itemY[j] + 1].Cells[itemX[j] + 1].character = chStrawberry;
-                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].foreColor = StrawberryColor;
+                            rows[i][itemY[j] + 1].Cells[itemX[j] + 1].cssClass = cssStrawberry;
                             break;
                     }
                 }
@@ -388,7 +371,7 @@ namespace BlazorDungeon.Data
                 for (short j = 0; j < enemyCount; j++)
                 {
                     rows[i][enemyY[j] + 1].Cells[enemyX[j] + 1].character = chEnemy;
-                    rows[i][enemyY[j] + 1].Cells[enemyX[j] + 1].foreColor = Color.PaleVioletRed;
+                    rows[i][enemyY[j] + 1].Cells[enemyX[j] + 1].cssClass = cssStrawberry;
                 }
             }
         }
@@ -405,13 +388,11 @@ namespace BlazorDungeon.Data
                     {
                         case " ":
                             rows[y + 1].Cells[x + 1].character = ch.Current.ToString();
-                            rows[y + 1].Cells[x + 1].foreColor = Color.Black;
-                            rows[y + 1].Cells[x + 1].backColor = Color.Black;
+                            rows[y + 1].Cells[x + 1].cssClass = cssCorridor;
                             break;
                         case "*":
                             rows[y + 1].Cells[x + 1].character = chWall;
-                            rows[y + 1].Cells[x + 1].foreColor = Color.PaleGoldenrod;
-                            rows[y + 1].Cells[x + 1].backColor = Color.Black;
+                            rows[y + 1].Cells[x + 1].cssClass = cssWall;
                             break;
                     }
                     
@@ -436,58 +417,58 @@ namespace BlazorDungeon.Data
             for (short x = 0; x < width - infopanelwidth; x++)
             {
                 rows[0].Cells[x].character = " ";
-                rows[0].Cells[x].backColor = Color.CadetBlue;
+                rows[0].Cells[x].cssClass = cssMarginTitle;
                 rows[height - 1].Cells[x].character = " ";
-                rows[height - 1].Cells[x].backColor = Color.CadetBlue;
+                rows[height - 1].Cells[x].cssClass = cssMarginTitle;
             }
 
             for (short y = 0; y < height; y++)
             {
                 rows[y].Cells[0].character = " ";
-                rows[y].Cells[0].backColor = Color.CadetBlue;
+                rows[y].Cells[0].cssClass = cssMarginTitle;
             }
 
             for (short x = (short)(width - infopanelwidth); x < width; x++)
                 for (short y = 0; y < height; y++)
                 {
                     rows[y].Cells[x].character = " ";
-                    rows[y].Cells[x].backColor = Color.CadetBlue;
+                    rows[y].Cells[x].cssClass = cssMarginTitle;
                 }
 
             string title = "BLAZOR DUNGEON v1.0";
-            drawText(title, (short)(((width - infopanelwidth) / 2) - (title.Length / 2)), 0, Color.Yellow, Color.CadetBlue, rows);
+            drawText(title, (short)(((width - infopanelwidth) / 2) - (title.Length / 2)), 0, cssMarginTitle, rows);
 
-            drawText("SCORES", (short)(width - infopanelwidth + 3), 1, Color.Aquamarine, Color.CadetBlue, rows);
+            drawText("SCORES", (short)(width - infopanelwidth + 3), 1, cssMarginText, rows);
 
             for (short i = 0; i < playerCount; i++)
             {
-                drawCh(chPlayer, (short)(width - infopanelwidth + 2), (short)(3 + i), playerColor[i], Color.Black, rows);
-                drawText(string.Format(" {0:000000}", playerScore[i]), (short)(width - infopanelwidth + 3), (short)(3 + i), playerColor[i], Color.Black, rows);
+                drawCh(chPlayer, (short)(width - infopanelwidth + 2), (short)(3 + i), cssPlayer + (i+1).ToString(), rows);
+                drawText(string.Format(" {0:000000}", playerScore[i]), (short)(width - infopanelwidth + 3), (short)(3 + i), cssPlayer + (i + 1).ToString(), rows);
             }
 
             if (playerNumber < playerCount)
             {
-                drawText("YOU ", (short)(width - infopanelwidth + 3), 15, Color.Aquamarine, Color.CadetBlue, rows);
-                drawCh(chPlayer, (short)(width - infopanelwidth + 8), 15, playerColor[playerNumber], Color.Black, rows);
+                drawText("YOU ", (short)(width - infopanelwidth + 3), 15, cssMarginText, rows);
+                drawCh(chPlayer, (short)(width - infopanelwidth + 8), 15, cssPlayer + (playerNumber+1).ToString(), rows);
             }else
             {
-                drawText("ROOM FULL", (short)(width - infopanelwidth + 2), 15, Color.Red, Color.CadetBlue, rows);
+                drawText("ROOM FULL", (short)(width - infopanelwidth + 2), 15, cssRoomFull, rows);
             }
 
-            drawText("POINTS", (short)(width - infopanelwidth + 3), 17, Color.Aquamarine, Color.CadetBlue, rows);
-            drawCh(chCoin, (short)(width - infopanelwidth + 2), (short)(19), CoinColor, Color.Black, rows);
-            drawText(" 10    ", (short)(width - infopanelwidth + 3), (short)(19), CoinColor, Color.Black, rows);
-            drawCh(chCherrie, (short)(width - infopanelwidth + 2), (short)(20), CherrieColor, Color.Black, rows);
-            drawText(" 20    ", (short)(width - infopanelwidth + 3), (short)(20), CherrieColor, Color.Black, rows);
-            drawCh(chGreenApple, (short)(width - infopanelwidth + 2), (short)(21), GreenAppleColor, Color.Black, rows);
-            drawText(" 30    ", (short)(width - infopanelwidth + 3), (short)(21), GreenAppleColor, Color.Black, rows);
-            drawCh(chRedApple, (short)(width - infopanelwidth + 2), (short)(22), RedAppleColor, Color.Black, rows);
-            drawText(" 40    ", (short)(width - infopanelwidth + 3), (short)(22), RedAppleColor, Color.Black, rows);
-            drawCh(chStrawberry, (short)(width - infopanelwidth + 2), (short)(23), StrawberryColor, Color.Black, rows);
-            drawText(" 50    ", (short)(width - infopanelwidth + 3), (short)(23), StrawberryColor, Color.Black, rows);
+            drawText("POINTS", (short)(width - infopanelwidth + 3), 17, cssMarginText, rows);
+            drawCh(chCoin, (short)(width - infopanelwidth + 2), (short)(19), cssCoin, rows);
+            drawText(" 10    ", (short)(width - infopanelwidth + 3), (short)(19), cssCoin, rows);
+            drawCh(chCherrie, (short)(width - infopanelwidth + 2), (short)(20), cssCherrie, rows);
+            drawText(" 20    ", (short)(width - infopanelwidth + 3), (short)(20), cssCherrie,  rows);
+            drawCh(chGreenApple, (short)(width - infopanelwidth + 2), (short)(21), cssGreenApple,  rows);
+            drawText(" 30    ", (short)(width - infopanelwidth + 3), (short)(21), cssGreenApple, rows);
+            drawCh(chRedApple, (short)(width - infopanelwidth + 2), (short)(22), cssRedApple, rows);
+            drawText(" 40    ", (short)(width - infopanelwidth + 3), (short)(22), cssRedApple, rows);
+            drawCh(chStrawberry, (short)(width - infopanelwidth + 2), (short)(23), cssStrawberry, rows);
+            drawText(" 50    ", (short)(width - infopanelwidth + 3), (short)(23), cssStrawberry, rows);
         }
 
-        private void drawText(string text, short x, short y, Color foreColor, Color backColor, IList<Row> rows)
+        private void drawText(string text, short x, short y, string cssClass, IList<Row> rows)
         {
             CharEnumerator ch = text.GetEnumerator();
             while (ch.MoveNext())
@@ -495,18 +476,16 @@ namespace BlazorDungeon.Data
                 if (x < width && y < height)
                 {
                     rows[y].Cells[x].character = ch.Current.ToString();
-                    rows[y].Cells[x].foreColor = foreColor;
-                    rows[y].Cells[x].backColor = backColor;
+                    rows[y].Cells[x].cssClass = cssClass;
                 }
                 x++;
             }
         }
 
-        private void drawCh(string ch, short x, short y, Color foreColor, Color backColor, IList<Row> rows)
+        private void drawCh(string ch, short x, short y, string cssClass, IList<Row> rows)
         {
             rows[y].Cells[x].character = ch;
-            rows[y].Cells[x].foreColor = foreColor;
-            rows[y].Cells[x].backColor = backColor;
+            rows[y].Cells[x].cssClass = cssClass;
         }
     }
 }

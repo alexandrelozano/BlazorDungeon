@@ -6,7 +6,7 @@
 @inject StateManager StateManager;
 
 <pre tabindex="0" @onkeydown="OnKeyDownScreen" @onkeyup="OnKeyUpScreen">@if(rows!=null)foreach (var row in rows){
-    foreach (var cell in row.Cells){<span style="color:@cell.foreColorHTML();background-color:@cell.backColorHTML()">@cell.character</span>}@Environment.NewLine
+    foreach (var cell in row.Cells){<span class="@cell.cssClass">@cell.character</span>}@Environment.NewLine
 }
 </pre>
 <div>
