@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 
-namespace BlazorDungeon.Data
+namespace BlazorDungeon.Code
 {
     public class StateManager : IDisposable
     {
@@ -22,11 +21,11 @@ namespace BlazorDungeon.Data
             this.game = game;
 
             short i;
-            for (i = 0; i < game.playerCount; i++)
+            foreach (Player player in game.players)
             {
-                if (game.playerSessionId[i] == Guid.Empty)
+                if (player.SessionId == Guid.Empty)
                 {
-                    game.playerSessionId[i] = Id;
+                    player.SessionId = Id;
                     break;
                 }
             }
@@ -49,12 +48,12 @@ namespace BlazorDungeon.Data
             if (game != null)
             {
                 short i;
-                for (i = 0; i < game.playerCount; i++)
+                foreach (Player player in game.players)
                 {
-                    if (game.playerSessionId[i] == Id)
+                    if (player.SessionId == Id)
                     {
-                        game.playerSessionId[i] = Guid.Empty;
-                        game.playerScore[i] = 0;
+                        player.SessionId = Guid.Empty;
+                        player.score = 0;
                         break;
                     }
                 }

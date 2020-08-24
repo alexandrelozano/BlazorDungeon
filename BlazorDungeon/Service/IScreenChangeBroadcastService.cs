@@ -1,5 +1,5 @@
 ﻿using System;
-using BlazorDungeon.Data;
+using BlazorDungeon.Code;
 
 namespace BlazorDungeon.Service
 {

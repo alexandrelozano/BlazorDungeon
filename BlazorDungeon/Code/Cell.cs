@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 
 
-namespace BlazorDungeon.Data
+namespace BlazorDungeon.Code
 {
     public class Cell
     {

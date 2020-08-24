@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BlazorDungeon.Data;
+using BlazorDungeon.Code;
 using BlazorDungeon.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;

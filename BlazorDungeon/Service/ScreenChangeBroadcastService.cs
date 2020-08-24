@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BlazorDungeon.Data;
+using BlazorDungeon.Code;
 using System.Timers;
 using System.Drawing;
 
@@ -29,24 +29,24 @@ namespace BlazorDungeon.Service
 
         public void KeyDown(string key, Guid SessionId)
         {
-            for (short i = 0; i < game.playerCount; i++)
+            foreach(Player player in game.players)
             {
-                if (game.playerSessionId[i] == SessionId)
+                if (player.SessionId == SessionId)
                 {
-                    if (!game.keyDown[i].Contains(key))
-                        game.keyDown[i].Add(key);
+                    if (!player.keyDown.Contains(key))
+                        player.keyDown.Add(key);
                 }
             }
         }
 
         public void KeyUp(string key, Guid SessionId)
         {
-            for (short i = 0; i < game.playerCount; i++)
+            foreach (Player player in game.players)
             {
-                if (game.playerSessionId[i] == SessionId)
+                if (player.SessionId == SessionId)
                 {
-                    if (game.keyDown[i].Contains(key))
-                        game.keyDown[i].Remove(key);
+                    if (player.keyDown.Contains(key))
+                        player.keyDown.Remove(key);
                 }
             }
         }
@@ -56,16 +56,16 @@ namespace BlazorDungeon.Service
             IList<Row> rows = null;
             bool found=false;
 
-            for (short i = 0; i < game.playerCount; i++)
+            for (short i = 0; i < game.players.Count; i++)
             {
-                if (game.playerSessionId[i] == SessionId)
+                if (game.players[i].SessionId == SessionId)
                 {
                     rows=game.rows[i];
                     found = true;
                 }
             }
 
-            if (!found) rows = game.rows[game.playerCount];
+            if (!found) rows = game.rows[game.players.Count];
 
             return rows;
         }
@@ -74,11 +74,11 @@ namespace BlazorDungeon.Service
         {
             IList<bool> sounds = null;
 
-            for (short i = 0; i < game.playerCount; i++)
+            foreach (Player player in game.players)
             {
-                if (game.playerSessionId[i] == SessionId)
+                if (player.SessionId == SessionId)
                 {
-                    sounds = game.sounds[i];
+                    sounds = player.sounds;
                 }
             }
 
