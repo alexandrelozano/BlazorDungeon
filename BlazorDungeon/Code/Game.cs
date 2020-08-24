@@ -403,29 +403,29 @@ namespace BlazorDungeon.Code
 
             for (short i = 0; i < players.Count; i++)
             {
-                drawCh(chPlayer, (short)(width - infopanelwidth + 2), (short)(3 + i), cssPlayer + (i+1).ToString(), rows);
+                drawCharacter(chPlayer, (short)(width - infopanelwidth + 2), (short)(3 + i), cssPlayer + (i+1).ToString(), rows);
                 drawText(string.Format(" {0:000000}", players[i].score), (short)(width - infopanelwidth + 3), (short)(3 + i), cssPlayer + (i + 1).ToString(), rows);
             }
 
             if (playerNumber < players.Count)
             {
                 drawText("YOU ", (short)(width - infopanelwidth + 3), 15, cssMarginText, rows);
-                drawCh(chPlayer, (short)(width - infopanelwidth + 8), 15, cssPlayer + (playerNumber+1).ToString(), rows);
+                drawCharacter(chPlayer, (short)(width - infopanelwidth + 8), 15, cssPlayer + (playerNumber+1).ToString(), rows);
             }else
             {
                 drawText("ROOM FULL", (short)(width - infopanelwidth + 2), 15, cssRoomFull, rows);
             }
 
             drawText("POINTS", (short)(width - infopanelwidth + 3), 17, cssMarginText, rows);
-            drawCh(chCoin, (short)(width - infopanelwidth + 2), (short)(19), cssCoin, rows);
+            drawCharacter(chCoin, (short)(width - infopanelwidth + 2), (short)(19), cssCoin, rows);
             drawText(" 10    ", (short)(width - infopanelwidth + 3), (short)(19), cssCoin, rows);
-            drawCh(chCherrie, (short)(width - infopanelwidth + 2), (short)(20), cssCherrie, rows);
+            drawCharacter(chCherrie, (short)(width - infopanelwidth + 2), (short)(20), cssCherrie, rows);
             drawText(" 20    ", (short)(width - infopanelwidth + 3), (short)(20), cssCherrie,  rows);
-            drawCh(chGreenApple, (short)(width - infopanelwidth + 2), (short)(21), cssGreenApple,  rows);
+            drawCharacter(chGreenApple, (short)(width - infopanelwidth + 2), (short)(21), cssGreenApple,  rows);
             drawText(" 30    ", (short)(width - infopanelwidth + 3), (short)(21), cssGreenApple, rows);
-            drawCh(chRedApple, (short)(width - infopanelwidth + 2), (short)(22), cssRedApple, rows);
+            drawCharacter(chRedApple, (short)(width - infopanelwidth + 2), (short)(22), cssRedApple, rows);
             drawText(" 40    ", (short)(width - infopanelwidth + 3), (short)(22), cssRedApple, rows);
-            drawCh(chStrawberry, (short)(width - infopanelwidth + 2), (short)(23), cssStrawberry, rows);
+            drawCharacter(chStrawberry, (short)(width - infopanelwidth + 2), (short)(23), cssStrawberry, rows);
             drawText(" 50    ", (short)(width - infopanelwidth + 3), (short)(23), cssStrawberry, rows);
         }
 
@@ -443,9 +443,9 @@ namespace BlazorDungeon.Code
             }
         }
 
-        private void drawCh(string ch, short x, short y, string cssClass, IList<Row> rows)
+        private void drawCharacter(string character, short x, short y, string cssClass, IList<Row> rows)
         {
-            rows[y].Cells[x].character = ch;
+            rows[y].Cells[x].character = character;
             rows[y].Cells[x].cssClass = cssClass;
         }
     }
