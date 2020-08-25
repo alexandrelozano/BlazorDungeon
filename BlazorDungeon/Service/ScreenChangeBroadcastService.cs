@@ -45,8 +45,11 @@ namespace BlazorDungeon.Service
             {
                 if (player.SessionId == SessionId)
                 {
-                    if (player.keyDown.Contains(key))
-                        player.keyDown.Remove(key);
+                    if (key== "ArrowUp" || key== "ArrowDown" || key== "ArrowLeft" || key== "ArrowRight")
+                    {
+                        if (player.keyDown.Contains(key))
+                            player.keyDown.Remove(key);
+                    }
                 }
             }
         }
