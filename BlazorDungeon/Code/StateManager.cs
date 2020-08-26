@@ -8,19 +8,15 @@ namespace BlazorDungeon.Code
         public Guid Id { get; private set; }
         public Game game;
 
-        private string logPath;
-
         public StateManager()
         {
             this.Id = Guid.NewGuid();
-            logPath = @"C:\Log\Tmp";
         }
 
         public void Initialize(Game game)
         {
             this.game = game;
 
-            short i;
             foreach (Player player in game.players)
             {
                 if (player.SessionId == Guid.Empty)
@@ -36,10 +32,10 @@ namespace BlazorDungeon.Code
 
             try
             {
-                if (Directory.Exists(logPath))
+                if (Directory.Exists(Path.GetDirectoryName(Utils.pathLog)))
                 {
                     string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " New connection " + Id.ToString() + Environment.NewLine;
-                    System.IO.File.AppendAllText(logPath + @"\BlazorDungeon.txt", text);
+                    System.IO.File.AppendAllText(Utils.pathLog, text);
                 }
             }
             catch(Exception e)
@@ -51,17 +47,16 @@ namespace BlazorDungeon.Code
         {
             if (game != null)
             {
-                short i;
                 foreach (Player player in game.players)
                 {
                     if (player.SessionId == Id)
                     {
                         try
                         {
-                            if (Directory.Exists(logPath))
+                            if (Directory.Exists(Path.GetDirectoryName(Utils.pathLog)))
                             {
                                 string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " Ended connection " + player.SessionId.ToString() + " " + player.name + " max. score session:" + player.maxScoreSession.ToString() + Environment.NewLine;
-                                System.IO.File.AppendAllText(logPath + @"\BlazorDungeon.txt", text);
+                                System.IO.File.AppendAllText(Utils.pathLog + @"\BlazorDungeon.txt", text);
                             }
                         }
                         catch (Exception e)

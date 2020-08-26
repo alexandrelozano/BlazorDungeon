@@ -7,13 +7,13 @@ namespace BlazorDungeon.Code
 {
     public class Game
     {
-        public IList<Row>[] rows;
+        public List<Row>[] rows;
 
-        public IList<Player> players;
-        public IList<Enemy> enemies;
-        public IList<Item> items;
+        public List<Player> players;
+        public List<Enemy> enemies;
+        public List<Item> items;
 
-        public IList<HighScore> highScores;
+        public List<HighScore> highScores;
 
         public bool cursorVisible;
 
@@ -349,8 +349,12 @@ namespace BlazorDungeon.Code
             highScore.date = DateTime.Now;
             highScore.playerName = player.name;
             highScore.score = player.score;
+
+            highScores = Utils.ReadFromXmlFile<List<HighScore>>(Utils.pathHighScores);
+            if (highScores == null) highScores = new List<HighScore>();
             highScores.Add(highScore);
-            highScores = highScores.OrderByDescending(i => i.score).Take(10).ToList();
+            highScores = highScores.OrderByDescending(i => i.score).Take(100).ToList();
+            Utils.WriteToXmlFile<List<HighScore>>(Utils.pathHighScores, highScores, false);
 
             player.soundsTime[0] = DateTime.Now.AddSeconds(1);
             randomPosition(out short x, out short y);
@@ -434,7 +438,7 @@ namespace BlazorDungeon.Code
                             drawText("PRESS ENTER TO START", (short)((widthDungeon / 2) - 9), (short)((heightDungeon / 2) - 4), cssMarginTitle, rows[i]);
                             drawText("HIGH SCORES", (short)((widthDungeon / 2) - 5), (short)((heightDungeon / 2) - 2), cssMarginText, rows[i]);
                             drawText("NAME     " + " " + "SCORE " + " " + "DATE", (short)((widthDungeon / 2) - 13), (short)((heightDungeon / 2) - 1), cssMarginText, rows[i]);
-                            for (int j=0;j<highScores.Count();j++)
+                            for (int j=0;j<highScores.Count() && j<10;j++)
                             {
                                 drawText(highScores[j].playerName.PadRight(8, ' ') + " " + string.Format(" {0:000000}", highScores[j].score) + " " + highScores[j].date.ToString("dd/MM/yyyy"), (short)((widthDungeon / 2) - 13), (short)((heightDungeon / 2) + j), cssMarginText, rows[i]);
                             }
