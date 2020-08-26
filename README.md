@@ -13,3 +13,10 @@ Set focus to the page(click anywhere on it) and use arrows keys to move your pla
 
 ### Sample gameplay ###
 ![Gameplay](./Resources/gameplay.gif)
+
+## Changelog ##
+### v1.1 25/08/2020 ###
+* Player name screen
+* Highscores screen
+* Increased network performance using css instead of style tag
+* Bugfixes
