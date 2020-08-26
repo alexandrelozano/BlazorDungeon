@@ -56,7 +56,7 @@ namespace BlazorDungeon.Code
                             if (Directory.Exists(Path.GetDirectoryName(Utils.pathLog)))
                             {
                                 string text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + " Ended connection " + player.SessionId.ToString() + " " + player.name + " max. score session:" + player.maxScoreSession.ToString() + Environment.NewLine;
-                                System.IO.File.AppendAllText(Utils.pathLog + @"\BlazorDungeon.txt", text);
+                                System.IO.File.AppendAllText(Utils.pathLog, text);
                             }
                         }
                         catch (Exception e)
