@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BlazorDungeon.Code;
 using System.Timers;
 using System.Drawing;
+using Microsoft.Extensions.Configuration;
 
 namespace BlazorDungeon.Service
 {
@@ -12,9 +13,9 @@ namespace BlazorDungeon.Service
 
         public event ScreenChangeDelegate OnScreenChanged;
 
-        public ScreenChangeBroadcastService()
+        public ScreenChangeBroadcastService(IConfiguration configuration)
         {
-            game = new Game(80,25);
+            game = new Game(80,25, configuration.GetValue<string>("BlazorDungeon:HighScoresFile"));
             game.gameTimer.Elapsed += OnTimedEvent;
         }
 

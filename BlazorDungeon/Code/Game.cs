@@ -51,12 +51,16 @@ namespace BlazorDungeon.Code
 
         string[] maze;
 
-        public Game(short width, short height)
+        private string highScoresFile;
+
+        public Game(short width, short height, string highScoresFile)
         {
             this.width = width;
             this.height = height;
             widthDungeon = (short)(width - 12);
             heightDungeon = (short)(height - 2);
+
+            this.highScoresFile = highScoresFile;
 
             maze = new string[23];
             maze[0] += "*********************************************************************";
@@ -350,11 +354,11 @@ namespace BlazorDungeon.Code
             highScore.playerName = player.name;
             highScore.score = player.score;
 
-            highScores = Utils.ReadFromXmlFile<List<HighScore>>(Utils.pathHighScores);
+            highScores = Utils.ReadFromXmlFile<List<HighScore>>(highScoresFile);
             if (highScores == null) highScores = new List<HighScore>();
             highScores.Add(highScore);
             highScores = highScores.OrderByDescending(i => i.score).Take(100).ToList();
-            Utils.WriteToXmlFile<List<HighScore>>(Utils.pathHighScores, highScores, false);
+            Utils.WriteToXmlFile<List<HighScore>>(highScoresFile, highScores, false);
 
             player.soundsTime[0] = DateTime.Now.AddSeconds(1);
             randomPosition(out short x, out short y);

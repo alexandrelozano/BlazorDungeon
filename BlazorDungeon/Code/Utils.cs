@@ -5,10 +5,7 @@ using System.Xml.Serialization;
 namespace BlazorDungeon.Code
 {
     public class Utils
-    {
-        public const string pathLog = @"c:\log\tmp\BlazorDungeon.txt";
-        public const string pathHighScores = @"c:\log\tmp\HighScores.xml";
-
+    { 
         /// <summary>
         /// Writes the given object instance to an XML file.
         /// <para>Only Public properties and variables will be written to the file. These can be any type though, even other classes.</para>
